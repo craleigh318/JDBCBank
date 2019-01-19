@@ -1,11 +1,15 @@
 package com.revature.craleigh318.jdbc_bank.model;
 
+import java.math.BigDecimal;
+
 public class BankAccount {
 	
-	private int id;
-	private int balance;
+	public static final int CENT_PRECISION = 2;
 	
-	public BankAccount(int id, int balance) {
+	private int id;
+	private BigDecimal balance;
+	
+	public BankAccount(int id, BigDecimal balance) {
 		this.id = id;
 		this.balance = balance;
 	}
@@ -18,11 +22,11 @@ public class BankAccount {
 		this.id = id;
 	}
 	
-	public int getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 	
-	public void setBalance(int balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 }
