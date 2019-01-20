@@ -11,10 +11,22 @@ public class BankAccountFactory {
 	private static final int BANK_ACCOUNT_ID = 1;
 	private static final int BANK_ACCOUNT_BALANCE = 2;
 	
-	public BankAccount fromSQL(ResultSet resultSet) throws SQLException {
-		int id = resultSet.getInt(BANK_ACCOUNT_ID);
-		BigDecimal balance = resultSet.getBigDecimal(BANK_ACCOUNT_BALANCE);
-		balance = balance.setScale(BankAccount.CENT_PRECISION);
+	public BankAccount fromSQL(ResultSet resultSet) {
+		Integer id;
+		try {
+			id = resultSet.getInt(BANK_ACCOUNT_ID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			id = null;
+		}
+		BigDecimal balance;
+		try {
+			balance = resultSet.getBigDecimal(BANK_ACCOUNT_BALANCE);
+			balance = balance.setScale(BankAccount.CENT_PRECISION);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			balance = null;
+		}
 		return new BankAccount(id, balance);
 	}
 	

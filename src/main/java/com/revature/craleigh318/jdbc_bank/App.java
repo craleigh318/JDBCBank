@@ -13,7 +13,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        LoginPrompt.prompt().logIn();
+        LoginPrompt.logIn();
         cleanUp();
     }
     

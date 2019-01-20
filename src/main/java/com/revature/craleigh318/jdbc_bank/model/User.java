@@ -2,31 +2,31 @@ package com.revature.craleigh318.jdbc_bank.model;
 
 public class User {
 	
-	private int id;
-	private int bankAccountId;
+	private Integer id;
+	private Integer bankAccountId;
 	private String username;
 	private String password;
 	
-	public User(int id, int bankAccountId, String username, String password) {
+	public User(Integer id, Integer bankAccountId, String username, String password) {
 		this.setId(id);
 		this.setBankAccountId(bankAccountId);
 		this.setUsername(username);
 		this.setPassword(password);
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getBankAccountId() {
+	public Integer getBankAccountId() {
 		return bankAccountId;
 	}
 
-	public void setBankAccountId(int bankAccountId) {
+	public void setBankAccountId(Integer bankAccountId) {
 		this.bankAccountId = bankAccountId;
 	}
 

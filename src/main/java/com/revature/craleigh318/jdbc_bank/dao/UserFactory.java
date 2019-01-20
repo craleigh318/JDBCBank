@@ -12,11 +12,35 @@ public class UserFactory {
 	private static final int USERNAME = 3;
 	private static final int USER_PASSWORD = 4;
 	
-	public User fromSQL(ResultSet resultSet) throws SQLException {
-		int id = resultSet.getInt(USER_ID);
-		int bankAccountId = resultSet.getInt(BANK_ACCOUNT_ID);
-		String username = resultSet.getString(USERNAME);
-		String password = resultSet.getString(USER_PASSWORD);
+	public User fromSQL(ResultSet resultSet) {
+		Integer id;
+		try {
+			id = resultSet.getInt(USER_ID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			id = null;
+		}
+		Integer bankAccountId;
+		try {
+			bankAccountId = resultSet.getInt(BANK_ACCOUNT_ID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			bankAccountId = null;
+		}
+		String username;
+		try {
+			username = resultSet.getString(USERNAME);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			username = null;
+		}
+		String password;
+		try {
+			password = resultSet.getString(USER_PASSWORD);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			password = null;
+		}
 		return new User(id, bankAccountId, username, password);
 	}
 	
