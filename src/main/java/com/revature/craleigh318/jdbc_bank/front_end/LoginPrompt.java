@@ -16,7 +16,7 @@ public class LoginPrompt {
 	public void logIn() {
 		InputOutput.out().print("Username: ");
         String username = InputOutput.in().readLine();
-        InputOutput.out().print("\nPassword: ");
+        InputOutput.out().print("Password: ");
         char[] password = InputOutput.in().readPassword();
 	}
 	

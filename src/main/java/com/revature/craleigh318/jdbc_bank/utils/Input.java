@@ -14,6 +14,8 @@ public class Input {
 		return input;
 	}
 	
+	private Scanner scannerSystemIn = null;
+	
 	private Input() { }
 	
 	public String readLine() {
@@ -32,15 +34,24 @@ public class Input {
 		return standardReadLine().toCharArray();
 	}
 	
+	void cleanUp() {
+		if (scannerSystemIn != null) {
+			scannerSystemIn.close();
+		}
+	}
+	
+	private Scanner scanner() {
+		if (scannerSystemIn == null) {
+			scannerSystemIn = new Scanner(System.in);
+		}
+		return scannerSystemIn;
+	}
+	
 	private Console console() {
 		return System.console();
 	}
 	
 	private String standardReadLine() {
-		String ln = null;
-		try (Scanner scnr = new Scanner(System.in)) {
-			ln = scnr.nextLine();
-		}
-		return ln;
+		return scanner().nextLine();
 	}
 }

@@ -11,5 +11,9 @@ public class InputOutput {
 		return Input.input();
 	}
 	
+	public static void cleanUp() {
+		in().cleanUp();
+	}
+	
 	private InputOutput() { }
 }
