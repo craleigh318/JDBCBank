@@ -1,4 +1,4 @@
-package com.revature.craleigh318.jdbc_bank.services;
+package com.revature.craleigh318.jdbc_bank.dao;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
