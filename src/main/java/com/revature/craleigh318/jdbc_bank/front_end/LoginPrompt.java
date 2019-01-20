@@ -22,7 +22,5 @@ public class LoginPrompt {
 		return new User(null, null, username, passwordString);
 	}
 	
-	
-	
 	private LoginPrompt() { }
 }
