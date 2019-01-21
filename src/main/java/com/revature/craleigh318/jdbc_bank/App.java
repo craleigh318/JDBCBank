@@ -11,18 +11,18 @@ import com.revature.craleigh318.jdbc_bank.utils.InputOutput;
  */
 public class App 
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
-        ConsoleView.show();
-        cleanUp();
+        try {
+        	ConsoleView.show();
+            cleanUp();
+        } catch (IOException e) {
+        	InputOutput.out().println("Connection failed.");
+        }
     }
     
-    private static void cleanUp() {
-    	try {
-			DataHandler.cleanUp();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    private static void cleanUp() throws IOException {
+    	DataHandler.cleanUp();
     	InputOutput.cleanUp();
     }
 }

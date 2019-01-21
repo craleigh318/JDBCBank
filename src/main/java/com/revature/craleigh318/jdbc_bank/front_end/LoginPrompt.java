@@ -1,5 +1,9 @@
 package com.revature.craleigh318.jdbc_bank.front_end;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+import com.revature.craleigh318.jdbc_bank.dao.BankAccountQueries;
 import com.revature.craleigh318.jdbc_bank.dao.UserQueries;
 import com.revature.craleigh318.jdbc_bank.exceptions.IncorrectPasswordException;
 import com.revature.craleigh318.jdbc_bank.model.User;
@@ -10,11 +14,11 @@ class LoginPrompt {
 	private static final String EXISTING_USER = "1";
 	private static final String NEW_USER = "2";
 	
-	static void begin() {
+	static void begin() throws IOException {
 		newOrExistingUserPrompt();
 	}
 	
-	static void newOrExistingUserPrompt() {
+	static void newOrExistingUserPrompt() throws IOException {
 		InputOutput.out().println(EXISTING_USER +") Log In as existing user\n" + NEW_USER + ") Create new account");
 		String input = InputOutput.in().readLine();
 		switch (input) {
@@ -30,7 +34,7 @@ class LoginPrompt {
 		}
 	}
 	
-	public static void logIn() {
+	public static void logIn() throws IOException {
 		User enteredUser = usernamePasswordPrompt();
 		boolean userExists;
 		try {
@@ -47,7 +51,7 @@ class LoginPrompt {
 		}
 	}
 	
-	private static void register() {
+	private static void register() throws IOException {
 		User registration = usernamePasswordPrompt();
 		String username = registration.getUsername();
 		boolean userAlreadyExists = UserQueries.userExists(username);
@@ -56,7 +60,14 @@ class LoginPrompt {
 			newOrExistingUserPrompt();
 			return;
 		}
-		//create user
+		try {
+			int accountId = BankAccountQueries.createAccount();
+			registration.setBankAccountId(accountId);
+			UserQueries.createUser(registration);
+			InputOutput.out().println("Registration successful.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private static User usernamePasswordPrompt() {
