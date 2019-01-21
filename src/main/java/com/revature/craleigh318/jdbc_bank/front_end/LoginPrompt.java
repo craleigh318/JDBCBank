@@ -38,14 +38,15 @@ class LoginPrompt {
 	
 	private static void logIn() throws IOException {
 		User enteredUser = usernamePasswordPrompt();
-		boolean userExists;
+		User actualUser = null;
 		try {
-			userExists = UserQueries.verifyPassword(enteredUser);
+			actualUser = UserQueries.verifyLogin(enteredUser);
 		} catch (IncorrectPasswordException e) {
 			InputOutput.out().println(IncorrectPasswordException.MESSAGE);
 			newOrExistingUserPrompt();
 			return;
 		}
+		boolean userExists = (actualUser != null);
 		if (userExists) {
 			InputOutput.out().println("User exists.");
 		} else {

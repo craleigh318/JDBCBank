@@ -12,7 +12,7 @@ public class UserFactory {
 	private static final int USERNAME = 3;
 	private static final int USER_PASSWORD = 4;
 	
-	public User fromSQL(ResultSet resultSet) {
+	public static User fromSql(ResultSet resultSet) {
 		Integer id;
 		try {
 			id = resultSet.getInt(USER_ID);

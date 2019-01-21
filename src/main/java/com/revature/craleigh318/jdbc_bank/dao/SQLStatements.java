@@ -21,6 +21,7 @@ class SQLStatements {
 	private static final String SQL_INSERT_BA = "INSERT INTO " + TABLE_BA + " VALUES(?, 0.00)";
 	private static final String SQL_INSERT_U = "INSERT INTO " + TABLE_U + " VALUES(" + SEQUENCE_U + ".NEXTVAL, ?, ?, ?)";
 	private static final String SQL_BA_SELECT_B = "SELECT " + BA_B + " FROM " + TABLE_BA + " WHERE " + BA_KEY + "=?";
+	private static final String SQL_U_SELECT = "SELECT * FROM " + TABLE_U + " WHERE " + U_UN + "=?";
 	private static final String SQL_U_SELECT_P = "SELECT " + U_P + " FROM " + TABLE_U + " WHERE " + U_UN + "=?";
 	private static final String SQL_BA_UPDATE_B = "UPDATE " + TABLE_BA + " SET " + BA_B + "=? WHERE " + BA_KEY + "=?";
 	private static final String SQL_DELETE_BA = "DELETE FROM " + TABLE_BA + " WHERE " + BA_KEY + "=?";
@@ -44,6 +45,12 @@ class SQLStatements {
 	static PreparedStatement bankAccountSelectBalance(Connection connection, int accountId) throws SQLException {
 		PreparedStatement stmt = connection.prepareStatement(SQL_BA_SELECT_B);
 		stmt.setInt(1, accountId);
+		return stmt;
+	}
+	
+	static PreparedStatement userSelect(Connection connection, String username) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement(SQL_U_SELECT);
+		stmt.setString(1, username);
 		return stmt;
 	}
 	

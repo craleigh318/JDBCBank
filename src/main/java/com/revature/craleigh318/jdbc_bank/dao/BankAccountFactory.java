@@ -11,7 +11,7 @@ public class BankAccountFactory {
 	private static final int BANK_ACCOUNT_ID = 1;
 	private static final int BANK_ACCOUNT_BALANCE = 2;
 	
-	public BankAccount fromSQL(ResultSet resultSet) {
+	public static BankAccount fromSQL(ResultSet resultSet) {
 		Integer id;
 		try {
 			id = resultSet.getInt(BANK_ACCOUNT_ID);

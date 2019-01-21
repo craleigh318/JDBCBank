@@ -15,21 +15,43 @@ public class UserQueries {
 		return foundPassword != null;
 	}
 	
-	public static boolean verifyPassword(User user) throws IncorrectPasswordException, IOException {
-		String username = user.getUsername();
-		String password = user.getPassword();
-		String foundPassword = findPassword(username);
-		if (foundPassword == null) {
-			return false;
+	public static User verifyLogin(User login) throws IncorrectPasswordException, IOException {
+		String username = login.getUsername();
+		String password = login.getPassword();
+		User foundUser = userFromUsername(username);
+		if (foundUser == null) {
+			return null;
 		}
+		String foundPassword = foundUser.getPassword();
 		if (!password.equals(foundPassword)) {
 			throw new IncorrectPasswordException();
 		}
-		return true;
+		return foundUser;
 	}
 	
 	public static void createUser(User user) throws SQLException, IOException {
 		SQLStatements.insertUser(SQLQueries.connection(), user).execute();
+	}
+	
+	private static User userFromUsername(String username) throws IOException {
+		ResultSet rows = getUserRows(username);
+		try {
+			if ((rows != null) && rows.next()) {
+				return UserFactory.fromSql(rows);
+			}
+		} catch (SQLException e) {
+		}
+		return null;
+	}
+	
+	private static ResultSet getUserRows(String username) throws IOException {
+		try {
+			PreparedStatement stmt = SQLStatements.userSelect(SQLQueries.connection(), username);
+			return stmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	private static String findPassword(String username) throws IOException {
