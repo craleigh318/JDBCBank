@@ -9,15 +9,15 @@ import com.revature.craleigh318.jdbc_bank.model.User;
 
 class SQLStatements {
 	
-	private static final String TABLE_BA = "BANK_ACCOUNTS";
-	private static final String TABLE_U = "USERS";
-	private static final String BA_KEY = "BANK_ACCOUNT_ID";
-	private static final String BA_B = "BANK_ACCOUNT_BALANCE";
-	private static final String U_KEY = "USER_ID";
-	private static final String U_UN = "USERNAME";
-	private static final String U_P = "USER_PASSWORD";
-	private static final String SEQUENCE_BA = "SEQUENCE_BANK_ACCOUNT_ID";
-	private static final String SEQUENCE_U = "SEQUENCE_USER_ID";
+	static final String TABLE_BA = "BANK_ACCOUNTS";
+	static final String TABLE_U = "USERS";
+	static final String BA_KEY = "BANK_ACCOUNT_ID";
+	static final String BA_B = "BANK_ACCOUNT_BALANCE";
+	static final String U_KEY = "USER_ID";
+	static final String U_UN = "USERNAME";
+	static final String U_P = "USER_PASSWORD";
+	static final String SEQUENCE_BA = "SEQUENCE_BANK_ACCOUNT_ID";
+	static final String SEQUENCE_U = "SEQUENCE_USER_ID";
 	private static final String SQL_INSERT_BA = "INSERT INTO " + TABLE_BA + " (" + SEQUENCE_BA + ".NEXTVAL, 0.00)";
 	private static final String SQL_INSERT_U = "INSERT INTO " + TABLE_U + " (" + SEQUENCE_U + ".NEXTVAL, ?, ?, ?)";
 	private static final String SQL_BA_SELECT_B = "SELECT " + BA_B + " FROM " + TABLE_BA + " WHERE " + BA_KEY + "=?";
