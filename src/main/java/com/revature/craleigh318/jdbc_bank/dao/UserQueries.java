@@ -8,18 +8,12 @@ import com.revature.craleigh318.jdbc_bank.model.User;
 
 public class UserQueries {
 	
-	private static final String COLUMN_USERNAME = "USERNAME";
-	private static final String COLUMN_PASSWORD = "USER_PASSWORD";
-	private static final String TABLE = "USERS";
-	private static final String STATEMENT_INSERT_USER = "INSERT INTO " + TABLE + " (SEQUENCE_USER_ID.NEXTVAL, ?, ?, ?)";
-	private static final String STATEMENT_SELECT_PASSWORD = "SELECT " + COLUMN_PASSWORD + " FROM " + TABLE + " WHERE " + COLUMN_USERNAME + "=?";
-	
 	public static boolean userExists(String username) {
 		String foundPassword = findPassword(username);
 		return foundPassword != null;
 	}
 	
-	public static boolean olduserExists(User user) throws IncorrectPasswordException {
+	public static boolean verifyPassword(User user) throws IncorrectPasswordException {
 		String username = user.getUsername();
 		String password = user.getPassword();
 		String foundPassword = findPassword(username);
@@ -34,8 +28,7 @@ public class UserQueries {
 	
 	private static String findPassword(String username) {
 		try {
-			PreparedStatement stmt = SQLQueries.prepareStatement(STATEMENT_SELECT_PASSWORD);
-			stmt.setString(1, username);
+			PreparedStatement stmt = SQLStatements.userSelectPassword(SQLQueries.connection(), username);
 			ResultSet rslts = stmt.executeQuery();
 			if (rslts.next()) {
 				return rslts.getString(1);

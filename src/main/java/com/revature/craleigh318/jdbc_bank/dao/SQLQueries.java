@@ -1,6 +1,7 @@
 package com.revature.craleigh318.jdbc_bank.dao;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -10,6 +11,10 @@ class SQLQueries {
 	
 	static PreparedStatement prepareStatement(String sql) throws SQLException, IOException {
 		return DataHandler.handler().connection().prepareStatement(sql);
+	}
+	
+	static Connection connection() throws SQLException, IOException {
+		return DataHandler.handler().connection();
 	}
 	
 	private SQLQueries() { }

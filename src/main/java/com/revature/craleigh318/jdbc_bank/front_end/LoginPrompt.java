@@ -19,7 +19,7 @@ class LoginPrompt {
 		String input = InputOutput.in().readLine();
 		switch (input) {
 		case EXISTING_USER:
-			//logIn();
+			logIn();
 			break;
 		case NEW_USER:
 			register();
@@ -30,11 +30,11 @@ class LoginPrompt {
 		}
 	}
 	
-	/*public static void logIn() {
+	public static void logIn() {
 		User enteredUser = usernamePasswordPrompt();
 		boolean userExists;
 		try {
-			userExists = UserQueries.userExists(enteredUser);
+			userExists = UserQueries.verifyPassword(enteredUser);
 		} catch (IncorrectPasswordException e) {
 			InputOutput.out().println(IncorrectPasswordException.MESSAGE);
 			logIn();
@@ -45,7 +45,7 @@ class LoginPrompt {
 		} else {
 			InputOutput.out().println("User does not exist.");
 		}
-	}*/
+	}
 	
 	private static void register() {
 		User registration = usernamePasswordPrompt();
