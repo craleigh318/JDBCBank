@@ -13,7 +13,6 @@ public class LoginPrompt {
 		try {
 			userExists = UserQueries.userExists(enteredUser);
 		} catch (IncorrectPasswordException e) {
-			e.printStackTrace();
 			InputOutput.out().println(IncorrectPasswordException.MESSAGE);
 			logIn();
 			return;
