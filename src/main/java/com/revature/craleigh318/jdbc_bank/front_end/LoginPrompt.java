@@ -48,7 +48,7 @@ class LoginPrompt {
 		}
 		boolean userExists = (actualUser != null);
 		if (userExists) {
-			InputOutput.out().println("User exists.");
+			AccountMaintenance.logIn(actualUser);
 		} else {
 			InputOutput.out().println("That username does not exist.");
 			newOrExistingUserPrompt();

@@ -7,10 +7,10 @@ import com.revature.craleigh318.jdbc_bank.model.User;
 
 public class UserFactory {
 	
-	private static final int USER_ID = 1;
-	private static final int BANK_ACCOUNT_ID = 2;
-	private static final int USERNAME = 3;
-	private static final int USER_PASSWORD = 4;
+	public static final int USER_ID = 1;
+	public static final int BANK_ACCOUNT_ID = 2;
+	public static final int USERNAME = 3;
+	public static final int USER_PASSWORD = 4;
 	
 	public static User fromSql(ResultSet resultSet) {
 		Integer id;
