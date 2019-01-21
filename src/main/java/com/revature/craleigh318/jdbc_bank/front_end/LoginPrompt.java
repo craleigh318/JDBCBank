@@ -5,9 +5,32 @@ import com.revature.craleigh318.jdbc_bank.exceptions.IncorrectPasswordException;
 import com.revature.craleigh318.jdbc_bank.model.User;
 import com.revature.craleigh318.jdbc_bank.utils.InputOutput;
 
-public class LoginPrompt {
+class LoginPrompt {
 	
-	public static void logIn() {
+	private static final String EXISTING_USER = "1";
+	private static final String NEW_USER = "2";
+	
+	static void begin() {
+		newOrExistingUserPrompt();
+	}
+	
+	static void newOrExistingUserPrompt() {
+		InputOutput.out().println(EXISTING_USER +") Log In as existing user\n" + NEW_USER + ") Create new account");
+		String input = InputOutput.in().readLine();
+		switch (input) {
+		case EXISTING_USER:
+			//logIn();
+			break;
+		case NEW_USER:
+			register();
+			break;
+		default:
+			InputOutput.out().println("Please select a valid option.");
+			newOrExistingUserPrompt();
+		}
+	}
+	
+	/*public static void logIn() {
 		User enteredUser = usernamePasswordPrompt();
 		boolean userExists;
 		try {
@@ -22,6 +45,18 @@ public class LoginPrompt {
 		} else {
 			InputOutput.out().println("User does not exist.");
 		}
+	}*/
+	
+	private static void register() {
+		User registration = usernamePasswordPrompt();
+		String username = registration.getUsername();
+		boolean userAlreadyExists = UserQueries.userExists(username);
+		if (userAlreadyExists) {
+			InputOutput.out().println("Registration failed. That username is already taken.");
+			newOrExistingUserPrompt();
+			return;
+		}
+		//create user
 	}
 	
 	private static User usernamePasswordPrompt() {
