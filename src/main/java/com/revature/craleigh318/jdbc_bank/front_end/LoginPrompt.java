@@ -15,7 +15,7 @@ class LoginPrompt {
 		newOrExistingUserPrompt();
 	}
 	
-	static void newOrExistingUserPrompt() throws IOException {
+	private static void newOrExistingUserPrompt() throws IOException {
 		final String EXISTING_USER = "1";
 		final String NEW_USER = "2";
 		final String EXIT = "3";
@@ -36,20 +36,21 @@ class LoginPrompt {
 		}
 	}
 	
-	public static void logIn() throws IOException {
+	private static void logIn() throws IOException {
 		User enteredUser = usernamePasswordPrompt();
 		boolean userExists;
 		try {
 			userExists = UserQueries.verifyPassword(enteredUser);
 		} catch (IncorrectPasswordException e) {
 			InputOutput.out().println(IncorrectPasswordException.MESSAGE);
-			logIn();
+			newOrExistingUserPrompt();
 			return;
 		}
 		if (userExists) {
 			InputOutput.out().println("User exists.");
 		} else {
-			InputOutput.out().println("User does not exist.");
+			InputOutput.out().println("That username does not exist.");
+			newOrExistingUserPrompt();
 		}
 	}
 	
@@ -71,6 +72,7 @@ class LoginPrompt {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		newOrExistingUserPrompt();
 	}
 	
 	private static User usernamePasswordPrompt() {

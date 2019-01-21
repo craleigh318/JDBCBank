@@ -10,7 +10,7 @@ public class BankAccountQueries {
 	public static int createAccount() throws SQLException, IOException {
 		int newId = nextId();
 		PreparedStatement stmt = SQLStatements.insertBankAccount(SQLQueries.connection(), newId);
-		stmt.executeQuery();
+		stmt.execute();
 		return newId;
 	}
 	

@@ -29,7 +29,7 @@ public class UserQueries {
 	}
 	
 	public static void createUser(User user) throws SQLException, IOException {
-		SQLStatements.insertUser(SQLQueries.connection(), user);
+		SQLStatements.insertUser(SQLQueries.connection(), user).execute();
 	}
 	
 	private static String findPassword(String username) throws IOException {
