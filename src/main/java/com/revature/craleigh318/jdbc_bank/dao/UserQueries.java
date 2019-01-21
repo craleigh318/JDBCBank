@@ -25,7 +25,7 @@ public class UserQueries {
 	}
 	
 	private static String findPassword(String username) {
-		String sql = "SELECT " + COLUMN_PASSWORD + " FROM " + TABLE + " WHERE " + COLUMN_USERNAME + '=' + username + ';';
+		String sql = "SELECT " + COLUMN_PASSWORD + " FROM " + TABLE + " WHERE " + COLUMN_USERNAME + "=\'" + username + '\'';
 		try {
 			ResultSet rslts = SQLQueries.executeQuery(sql);
 			if (rslts.next()) {
