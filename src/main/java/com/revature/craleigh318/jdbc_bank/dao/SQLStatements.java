@@ -18,16 +18,19 @@ class SQLStatements {
 	static final String U_P = "USER_PASSWORD";
 	static final String SEQUENCE_BA = "SEQUENCE_BANK_ACCOUNT_ID";
 	static final String SEQUENCE_U = "SEQUENCE_USER_ID";
-	private static final String SQL_INSERT_BA = "INSERT INTO " + TABLE_BA + " (" + SEQUENCE_BA + ".NEXTVAL, 0.00)";
-	private static final String SQL_INSERT_U = "INSERT INTO " + TABLE_U + " (" + SEQUENCE_U + ".NEXTVAL, ?, ?, ?)";
+	private static final String SQL_INSERT_BA = "INSERT INTO " + TABLE_BA + " VALUES(?, 0.00)";
+	private static final String SQL_INSERT_U = "INSERT INTO " + TABLE_U + " VALUES(" + SEQUENCE_U + ".NEXTVAL, ?, ?, ?)";
 	private static final String SQL_BA_SELECT_B = "SELECT " + BA_B + " FROM " + TABLE_BA + " WHERE " + BA_KEY + "=?";
 	private static final String SQL_U_SELECT_P = "SELECT " + U_P + " FROM " + TABLE_U + " WHERE " + U_UN + "=?";
 	private static final String SQL_BA_UPDATE_B = "UPDATE " + TABLE_BA + " SET " + BA_B + "=? WHERE " + BA_KEY + "=?";
 	private static final String SQL_DELETE_BA = "DELETE FROM " + TABLE_BA + " WHERE " + BA_KEY + "=?";
 	private static final String SQL_DELETE_U = "DELETE FROM " + TABLE_U + " WHERE " + U_KEY + "=?";
+	private static final String SQL_SELECT_SEQUENCE_BA_NEXT = "SELECT " + SEQUENCE_BA + ".NEXTVAL FROM DUAL";
 	
-	static PreparedStatement insertBankAccount(Connection connection) throws SQLException {
-		return connection.prepareStatement(SQL_INSERT_BA);
+	static PreparedStatement insertBankAccount(Connection connection, int bankAccountId) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement(SQL_INSERT_BA);
+		stmt.setInt(1, bankAccountId);
+		return stmt;
 	}
 	
 	static PreparedStatement insertUser(Connection connection, User user) throws SQLException {
@@ -66,6 +69,11 @@ class SQLStatements {
 	static PreparedStatement deleteUser(Connection connection, int userId) throws SQLException {
 		PreparedStatement stmt = connection.prepareStatement(SQL_DELETE_U);
 		stmt.setInt(1, userId);
+		return stmt;
+	}
+	
+	static PreparedStatement selectNextBankAccountId(Connection connection) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement(SQL_SELECT_SEQUENCE_BA_NEXT);
 		return stmt;
 	}
 	

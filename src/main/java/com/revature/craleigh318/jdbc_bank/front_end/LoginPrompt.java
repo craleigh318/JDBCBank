@@ -11,15 +11,15 @@ import com.revature.craleigh318.jdbc_bank.utils.InputOutput;
 
 class LoginPrompt {
 	
-	private static final String EXISTING_USER = "1";
-	private static final String NEW_USER = "2";
-	
 	static void begin() throws IOException {
 		newOrExistingUserPrompt();
 	}
 	
 	static void newOrExistingUserPrompt() throws IOException {
-		InputOutput.out().println(EXISTING_USER +") Log In as existing user\n" + NEW_USER + ") Create new account");
+		final String EXISTING_USER = "1";
+		final String NEW_USER = "2";
+		final String EXIT = "3";
+		InputOutput.out().println(EXISTING_USER +") Log In as existing user\n" + NEW_USER + ") Create new account\n" + EXIT + ") Exit");
 		String input = InputOutput.in().readLine();
 		switch (input) {
 		case EXISTING_USER:
@@ -28,6 +28,8 @@ class LoginPrompt {
 		case NEW_USER:
 			register();
 			break;
+		case EXIT:
+			return;
 		default:
 			InputOutput.out().println("Please select a valid option.");
 			newOrExistingUserPrompt();
@@ -62,6 +64,7 @@ class LoginPrompt {
 		}
 		try {
 			int accountId = BankAccountQueries.createAccount();
+			InputOutput.out().println("Account opened.");
 			registration.setBankAccountId(accountId);
 			UserQueries.createUser(registration);
 			InputOutput.out().println("Registration successful.");
