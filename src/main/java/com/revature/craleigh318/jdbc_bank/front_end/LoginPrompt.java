@@ -1,12 +1,28 @@
 package com.revature.craleigh318.jdbc_bank.front_end;
 
+import com.revature.craleigh318.jdbc_bank.dao.UserQueries;
+import com.revature.craleigh318.jdbc_bank.exceptions.IncorrectPasswordException;
 import com.revature.craleigh318.jdbc_bank.model.User;
 import com.revature.craleigh318.jdbc_bank.utils.InputOutput;
 
 public class LoginPrompt {
 	
 	public static void logIn() {
-		usernamePasswordPrompt();
+		User enteredUser = usernamePasswordPrompt();
+		boolean userExists;
+		try {
+			userExists = UserQueries.userExists(enteredUser);
+		} catch (IncorrectPasswordException e) {
+			e.printStackTrace();
+			InputOutput.out().println(IncorrectPasswordException.MESSAGE);
+			logIn();
+			return;
+		}
+		if (userExists) {
+			InputOutput.out().println("User exists.");
+		} else {
+			InputOutput.out().println("User does not exist.");
+		}
 	}
 	
 	private static User usernamePasswordPrompt() {

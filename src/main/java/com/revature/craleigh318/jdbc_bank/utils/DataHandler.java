@@ -48,7 +48,7 @@ public class DataHandler {
 	private String url() throws IOException {
 		if (jdbcUrl == null) {
 			Properties prop = properties();
-			return prop.getProperty(DB_ENDPOINT) + ':' + prop.getProperty(DB_PORT) + ':' + prop.getProperty(DB_NAME);
+			jdbcUrl = "jdbc:oracle:thin:@" + prop.getProperty(DB_ENDPOINT) + ':' + prop.getProperty(DB_PORT) + ':' + prop.getProperty(DB_NAME);
 		}
 		return jdbcUrl;
 	}
