@@ -37,7 +37,7 @@ public class UserQueries {
 		SQLStatements.deleteUser(SQLQueries.connection(), userId).execute();
 	}
 	
-	private static User userFromUsername(String username) throws IOException {
+	public static User userFromUsername(String username) throws IOException {
 		ResultSet rows = getUserRows(username);
 		try {
 			if ((rows != null) && rows.next()) {

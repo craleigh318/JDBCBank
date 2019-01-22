@@ -7,6 +7,7 @@ import com.revature.craleigh318.jdbc_bank.dao.BankAccountQueries;
 import com.revature.craleigh318.jdbc_bank.dao.UserQueries;
 import com.revature.craleigh318.jdbc_bank.exceptions.IncorrectPasswordException;
 import com.revature.craleigh318.jdbc_bank.model.User;
+import com.revature.craleigh318.jdbc_bank.utils.DataHandler;
 import com.revature.craleigh318.jdbc_bank.utils.InputOutput;
 
 class LoginPrompt {
@@ -38,6 +39,10 @@ class LoginPrompt {
 	
 	private static void logIn() throws IOException {
 		User enteredUser = usernamePasswordPrompt();
+		if (isSuperUser(enteredUser)) {
+			AccountMaintenance.superUserLogIn(enteredUser);
+			return;
+		}
 		User actualUser = null;
 		try {
 			actualUser = UserQueries.verifyLogin(enteredUser);
@@ -53,6 +58,11 @@ class LoginPrompt {
 			InputOutput.out().println("That username does not exist.");
 			newOrExistingUserPrompt();
 		}
+	}
+	
+	private static boolean isSuperUser(User user) throws IOException {
+		DataHandler hndlr = DataHandler.handler();
+		return (user.getUsername().equalsIgnoreCase(hndlr.masterUserName()) && user.getPassword().equals(hndlr.masterUserPassword()));
 	}
 	
 	private static void register() throws IOException {

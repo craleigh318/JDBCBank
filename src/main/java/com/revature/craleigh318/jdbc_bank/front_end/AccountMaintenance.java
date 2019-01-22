@@ -18,6 +18,17 @@ class AccountMaintenance {
 		pullInfo(user);
 	}
 	
+	static void superUserLogIn(User user) throws IOException {
+		InputOutput.out().println("Hello, " + user.getUsername() + "!\nEnter the username of the user to log in as");
+		String usernameToControl = InputOutput.in().readLine();
+		User userToControl = UserQueries.userFromUsername(usernameToControl);
+		if (userToControl == null) {
+			InputOutput.out().println("Sorry, that user does not exist.");
+		} else {
+			logIn(userToControl);
+		}
+	}
+	
 	private static void greeting(User user) {
 		InputOutput.out().println("Hello, " + user.getUsername() + "!");
 	}
