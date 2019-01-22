@@ -48,7 +48,7 @@ class AccountMaintenance {
 		final String WITHDRAW = "2";
 		final String CLOSE = "3";
 		final String LOG_OUT = "4";
-		InputOutput.out().println("What would you like to do today?\n" + DEPOSIT + ") Deposit funds\n" + WITHDRAW +") Withdraw funds\n" + CLOSE + "Close account\n" + LOG_OUT + "Log Out");
+		InputOutput.out().println("What would you like to do today?\n" + DEPOSIT + ") Deposit funds\n" + WITHDRAW +") Withdraw funds\n" + CLOSE + ") Close account\n" + LOG_OUT + ") Log Out");
 		String input = InputOutput.in().readLine();
 		switch (input) {
 		case DEPOSIT:
@@ -62,7 +62,10 @@ class AccountMaintenance {
 			}
 			break;
 		case CLOSE:
-			close(user, ba);
+			boolean closed = close(user, ba);
+			if (closed) {
+				return;
+			}
 			break;
 		case LOG_OUT:
 			return;
@@ -73,12 +76,19 @@ class AccountMaintenance {
 	}
 	
 	private static BigDecimal enterAmount() {
-		InputOutput.out().println("Please enter an amount: $");
+		InputOutput.out().print("Please enter an amount: $");
 		String input = InputOutput.in().readLine();
-		BigDecimal bdInput;
+		BigDecimal bdInput = null;
+		boolean validAmount = true;
 		try {
 			bdInput = new BigDecimal(input);
 		} catch (NumberFormatException e) {
+			validAmount = false;
+		}
+		if (validAmount && (bdInput.compareTo(BigDecimal.ZERO) < 0)) {
+			validAmount = false;
+		}
+		if (!validAmount) {
 			InputOutput.out().println("Invalid amount.");
 			return null;
 		}
@@ -113,19 +123,22 @@ class AccountMaintenance {
 		}
 	}
 	
-	private static void close(User user, BankAccount ba) throws IOException {
+	private static boolean close(User user, BankAccount ba) throws IOException {
 		BigDecimal balance = ba.getBalance();
 		float fBalance = balance.floatValue();
 		if (fBalance > 0.0f) {
 			InputOutput.out().println("You must have a balance of $0.00 to close your account.");
-			return;
+			return false;
 		}
 		try {
 			UserQueries.deleteUser(user.getId());
 			BankAccountQueries.deleteAccount(ba.getId());
 		} catch (SQLException e) {
 			InputOutput.out().println("Closure failed.");
+			return false;
 		}
+		InputOutput.out().println("You have closed your account. Goodbye!");
+		return true;
 	}
 	
 	private AccountMaintenance() { }
