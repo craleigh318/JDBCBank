@@ -17,10 +17,20 @@ public class BankAccountQueries {
 		return newId;
 	}
 	
+	public static void deleteAccount(int bankAccountId) throws SQLException, IOException {
+		PreparedStatement stmt = SQLStatements.deleteBankAccount(SQLQueries.connection(), bankAccountId);
+		stmt.execute();
+	}
+	
 	public static BankAccount getBankAccount(int bankAccountId) throws SQLException, IOException {
 		BigDecimal balance = getBalance(bankAccountId);
 		balance = balance.setScale(BankAccount.CENT_PRECISION);
 		return new BankAccount(bankAccountId, balance);
+	}
+	
+	public static void updateBalance(BankAccount bankAccount) throws SQLException, IOException {
+		PreparedStatement stmt = SQLStatements.bankAccountUpdateBalance(SQLQueries.connection(), bankAccount);
+		stmt.execute();
 	}
 	
 	private static BigDecimal getBalance(int id) throws SQLException, IOException {

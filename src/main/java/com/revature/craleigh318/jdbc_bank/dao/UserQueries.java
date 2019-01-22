@@ -33,6 +33,10 @@ public class UserQueries {
 		SQLStatements.insertUser(SQLQueries.connection(), user).execute();
 	}
 	
+	public static void deleteUser(int userId) throws SQLException, IOException {
+		SQLStatements.deleteUser(SQLQueries.connection(), userId).execute();
+	}
+	
 	private static User userFromUsername(String username) throws IOException {
 		ResultSet rows = getUserRows(username);
 		try {
