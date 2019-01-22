@@ -34,6 +34,8 @@ public class DataHandler {
 	private Connection connection = null;
 	private InputStream propertiesInput = null;
 	private Properties properties = null;
+	private String masterUserName = null;
+	private String masterUserPassword = null;
 	private String jdbcUrl = null;
 	
 	private DataHandler() { }
@@ -43,6 +45,22 @@ public class DataHandler {
 			connection = DriverManager.getConnection(url(), properties());
 		}
 		return connection;
+	}
+	
+	public String masterUserName() throws IOException {
+		if (masterUserName == null) {
+			Properties prop = properties();
+			masterUserName = prop.getProperty("user");
+		}
+		return masterUserName;
+	}
+	
+	public String masterUserPassword() throws IOException {
+		if (masterUserPassword == null) {
+			Properties prop = properties();
+			masterUserPassword = prop.getProperty("password");
+		}
+		return masterUserPassword;
 	}
 	
 	private String url() throws IOException {
